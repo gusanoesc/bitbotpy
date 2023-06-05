@@ -10,4 +10,4 @@ class Bot:
 
         self.bot = telepot.Bot(self.token)
         for x in NOTIFY_GRP_IDS:
-            self.bot.sendMessage(chat_id=x, text=data, parse_mode='Markdown')
+            self.bot.sendMessage(chat_id=x, text=data, parse_mode='None')

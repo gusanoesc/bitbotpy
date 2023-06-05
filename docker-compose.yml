@@ -1,0 +1,9 @@
+---
+version: "2"
+services:
+  bitbotpy:
+    image: bitbotpy:latest
+    mem_limit: 100m
+    container_name: bitbotpy
+    ports:
+      - 80:80
