@@ -1,48 +1,55 @@
 # Bitbucket WebHook Updates Telegram Bot
 
-## introduction
-```
-This telegram bot uses webhooks to integrate applications with Bitbucket Cloud.
+### Original Author: [Adityatelange](https://github.com/adityatelange/bitbucket-telegram-bot-webhook)
 
-Without webhooks, if you want to detect when events occur in Bitbucket Cloud,
-you need to poll the API. However, polling the API is inconvenient, inefficient, and error-prone.
-Consider how SMS messages work on mobile phones.
-You don't have to check your messages every 5 minutes to see if you have a text because your phone sends you a notification.
-In the same way, webhooks work like the notification so that the API does not have to check for the same activity every minute.
 
-more info : [Webhook Documentation](https://confluence.atlassian.com/bitbucket/manage-webhooks-735643732.html)
-```
+## Introduction
 
-## setup =>
-Bot must be hosted on server with having a domain name to work !
+This telegram bot uses webhooks to integrate applications with Bitbucket Cloud. [Webhook Documentation](https://confluence.atlassian.com/bitbucket/manage-webhooks-735643732.html)
+
+
+## Setup
+
+Bot must be hosted on server with having a domain name or an IP to work.
 
 Webhooks do not work via polling method.
-### Requirements
+
+
+## Requirements
+
 ```
-python3
-pip
-flask
-telepot
+- python3
+- pip3
+- flask
+- telepot
+- A Telegram Bot
 ```
 
-### installation
-```
-$ git clone https://github.com/AdityaTelange/bitbucket-telegram-bot-webhook
-$ cd bitbucket-telegram-bot-webhook
+
+## Manual Installation
+
+```bash
+$ # git clone https://github.com/AdityaTelange/bitbucket-telegram-bot-webhook (Original source - deprecated)
+$ git clone https://github.com/gusanoesc/bitbotpy.git
+$ cd bitbotpy
 $ pip3 install --user -r requirements.txt
 ```
 
-Edit *config.py* file
-```
+**Edit *config.py* file**
+
+```python
 TOKEN='<bot_token_obtained_from_bot_father>'
-OWNER_ID=<owner_id>
+OWNER_ID=None
 NOTIFY_GRP_IDS = [
     xxxxxxxxx,
     -yyyyyyyyy
 ]
 ```
-sample
-```
+
+
+**Sample**
+
+```python
 TOKEN='xxxxxxxxx:qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq'
 OWNER_ID=123456789
 NOTIFY_GRP_IDS = [
@@ -52,33 +59,45 @@ NOTIFY_GRP_IDS = [
 ]
 ```
 
-### adding webhook to bibucket repo
+
+## Adding webhook to Bibucket Repo
+
 1. Repository-settings => Webhooks (under Workflow) => Add Webhook
 
 2. Fill in Details
+    - Title: 'title'
+    - URL: https://your_domain.com/bitbucket
 
-    title: 'title'
-
-    url: https://domain.com/bitbucket
-
-3. choose _Triggers_ and other info.
+3. Choose _Triggers_ and other Info.
 
 4. *Save*
 
+
 ## Run
 
+```python3
+$ python3 ./server.py
 ```
-$ python3 server.py
+--- 
+
+## Docker Installation
+
+You need Docker and Docker-compose previously installed.
+
+```bash
+$ cd bitbotpy
+$ docker build -t bitbotpy:latest .
+$ # docker run --rm  -p 80:80 --name bitbotpy bitbotpy:latest
+$ docker-compose up -d
 ```
+
+---
 
 ## Done !!!
 
-Add your bot to grps and fill grp_id's into config.py
+Add your bot to groups and fill group id's into config.py
 
-Now any of the selected Triggers will send you a message !
+Now any of the selected Triggers will send you a message!
 
-### note:
-1. [Telegram bot - how to get a group chat id?](https://stackoverflow.com/questions/32423837/telegram-bot-how-to-get-a-group-chat-id)
-2. get owner id : send a message to [@userinfobot](https://telegram.me/userinfobot)
-3. Group ids are ment to be added personally because it can cause security/privacy issues. Bot can be added/shared to any group under certain settings. Thus providing Notifs to Groups you may be not aware of!
-4. Pull-request notifs aren't supported yet
+
+**Note: If you have a firewall or need more security, add only the CIDR list of bitbucket endpoints to your infrastructure:** [Bitbucket WhiteList](https://support.atlassian.com/bitbucket-cloud/docs/what-are-the-bitbucket-cloud-ip-addresses-i-should-use-to-configure-my-corporate-firewall/)
