@@ -22,4 +22,4 @@ def post_bitbucket():
 # listen for requests :)
 if __name__ == "__main__":
     from os import environ
-    application.run(host='0.0.0.0', port=80, debug=True)
+    application.run(host='0.0.0.0', port=80, debug=Flase)
